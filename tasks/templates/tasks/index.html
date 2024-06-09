@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task Manager</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background: #fff;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            border-radius: 8px;
+        }
+        .task {
+            margin-bottom: 20px;
+        }
+        .task h2 {
+            margin: 0 0 10px;
+        }
+        .task p {
+            margin: 0 0 10px;
+        }
+        .task a {
+            color: #333;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .task a:hover {
+            text-decoration: underline;
+        }
+        .new-task-link {
+            display: block;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Task Manager</h1>
+        <a href="{% url 'new_task' %}" class="new-task-link">Create New Task</a>
+        {% for task in tasks %}
+            <div class="task">
+                <h2>{{ task.title }}</h2>
+                <p>{{ task.description }}</p>
+                <p>Status: {{ task.completed|yesno:"Completed,Not completed" }}</p>
+                <a href="{% url 'edit_task' task.id %}">Edit</a>
+                <a href="{% url 'delete_task' task.id %}">Delete</a>
+            </div>
+        {% endfor %}
+    </div>
+</body>
+</html>
